@@ -1,0 +1,19 @@
+                    <h1>Merchant Demo Website</h1>
+                    <p>Welcome to the MintChip demos which show you how to use MintChip </p>
+                    <%= link_to "Pay with Card!", merchantDemoresult_path, class: "btn btn-large btn-primary" %>
+
+
+
+<%= form_tag({:controller => "merchant", :action => "result"}, :method => "get", :class => "nifty_form")  do %> 
+  <%= label_tag(:amt, "Amount:") %>
+  <%= label_tag(:amt_val, "$ 1.00 CAD:") %>
+
+  <%= label_tag(:CC, "Credit Card Number:") %>
+  <%= text_field_tag(:CCnum) %>
+   
+  <%= label_tag(:CCType, "Card Type:") %>
+  <%= select_tag "payment", options_for_select([ "Visa", "MasterCard", "AMEX", "Discover" ], "Visa") %>
+
+
+  <%= submit_tag("Pay with Card!") %>
+<% end %>

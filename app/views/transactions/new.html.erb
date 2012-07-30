@@ -1,0 +1,149 @@
+<% provide(:title, 'Sign up') %>
+<h1>Sign up</h1>
+
+    <script type="text/javascript">
+
+        var mintChipFactory;
+        var messageFactory;
+        var mintChip;
+
+        function mintChipApi() {
+
+            return document.getElementById("mintChipApiPlugin");
+        }
+
+        function pluginLoaded() {
+
+//            alert("Plugin loaded!");
+
+            try {
+
+                mintChipFactory = mintChipApi().mintChipFactory;
+                messageFactory = mintChipApi().messageFactory;
+                mintChip = mintChipFactory.createMintChip();
+            }
+            catch (err) {
+                displayError(err);
+            }
+        }
+
+        function createValueMessage() {
+
+            try {
+
+                var payeeId = "1310000000003353";
+                var amount = document.getElementById("amount").value;
+                var annotation = "This is working";
+
+                if (!mintChip.isValidId(payeeId)) {
+                    alert("Please enter valid Payee Id.");
+                    return;
+                }
+
+                if (amount.length == 0 || isNaN(amount)) {
+                    alert("Please enter valid amount.");
+                    return;
+                }
+
+                var request = messageFactory.createValueRequestMessage(payeeId, amount, mintChipApi().currencyCode.CAD);
+                request.challenge = Math.round(Math.random() * (Math.pow(2, 31)-1));
+                request.annotation = annotation;
+                request.responseAddress = "www.mint.ca";
+
+                var str = request.toBase64String(); // to test serialization
+                var receivedRequest = messageFactory.toMessage(str);
+
+//                if (displayValueRequestMessage(receivedRequest)) {
+                    var valueMessage = mintChip.createValueMessage(receivedRequest);
+//                    displayValueMessage(valueMessage);
+                	document.getElementById("valueMsg").value = valueMessage.toBase64String();                    
+//                }
+            }
+            catch (err) {
+                displayError(err);
+            }
+        }
+
+        function displayValueMessage(valueMessage, toConfirm) {
+
+            try {
+
+                var created = new Date(valueMessage.createdTime);
+
+                var info = "Value Message:\n" +
+                    "\n Amount: " + valueMessage.amount +
+                    "\n Annotation: " + valueMessage.annotation +
+                    "\n Challenge: " + valueMessage.challenge +
+                    "\n Currency Code: " + valueMessage.currencyCode +
+                    "\n Payee Id: " + valueMessage.payeeId +
+                    "\n Payer Id: " + valueMessage.payerId +
+                    "\n Version: " + valueMessage.mintChipVersion +
+                    "\n Created: " + created.toString("yyyy-MM-dd") +
+                    "\n\n The base64 encoded message is in the Value Message box.";
+
+                document.getElementById("valueMsg").value = valueMessage.toBase64String();
+
+                if (toConfirm) {
+                    return confirm(info);
+                }
+                else {
+                    alert(info);
+                    return true;
+                }
+            }
+            catch (err) {
+                displayError(err);
+                return false;
+            }
+        }
+
+        function displayValueRequestMessage(request) {
+
+            try {
+
+                return confirm("Value Request Message: \n" +
+                    "\n Amount: " + request.amount +
+                    "\n Annotation: " + request.annotation +
+                    "\n Challenge: " + request.challenge +
+                    "\n Currency Code: " + request.currencyCode +
+                    "\n Payee Id: " + request.payeeId +
+                    "\n Response Address: " + request.responseAddress + "\n"
+                );
+            }
+            catch (err) {
+                displayError(err);
+                return false;
+            }
+        }
+    </script>
+
+<body">
+
+    <object id="mintChipApiPlugin" type="application/x-mintchipplugin" width="0" height="0">
+        <param name="onload" value="pluginLoaded" />
+    </object><br />
+</body>
+
+<div class="row">
+  <div class="span6 offset3">
+
+
+
+<%= form_tag({:controller => "transactions", :action => "create"}, :method => "post", :class => "nifty_form")  do %> 
+  <%= label_tag(:Amount, "Amount") %>
+  <%= text_field_tag(:amount) %> 
+
+
+  <%= label_tag(:CCType, "Card Type:") %>
+  <%= select_tag "payment", options_for_select([ "Visa", "MasterCard", "AMEX", "Discover" ], "Visa") %>
+
+  <%= hidden_field_tag(:valueMsg) %>
+
+  <%= submit_tag  "Create my Virtual Card!", class: "btn btn-large btn-primary", :onclick => "return createValueMessage();" %>
+
+<% end %>
+
+
+
+  </div>
+</div>

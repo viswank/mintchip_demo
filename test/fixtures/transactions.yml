@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: transactions
+#
+#  id         :integer         not null, primary key
+#  amount     :float
+#  cc_num     :integer
+#  exp_date   :string(255)
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#  valueMsg   :string(255)
+#  cardType   :integer
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  amount: 1.5
+  cc_num: 1
+  exp_date: MyString
+
+two:
+  amount: 1.5
+  cc_num: 1
+  exp_date: MyString
