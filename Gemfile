@@ -5,7 +5,7 @@ gem 'rails', '3.2.6'
 gem 'bootstrap-sass', '2.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 
-gem 'pg'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -15,6 +15,10 @@ group :development, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'sqlite3', '1.3.5'
 end 
+
+group :production do
+  gem 'pg'
+end
 
 gem 'annotate', '~> 2.4.1.beta', group: :development
 
