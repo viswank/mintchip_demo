@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731003403) do
+ActiveRecord::Schema.define(:version => 20120731023802) do
 
   create_table "transactions", :force => true do |t|
     t.float    "amount"
-    t.string   "cc_num"
+    t.text     "cc_num",     :limit => 255
     t.string   "exp_date"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "valueMsg"
     t.integer  "cardType"
   end
