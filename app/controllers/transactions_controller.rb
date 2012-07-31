@@ -10,6 +10,8 @@ class TransactionsController < ApplicationController
 
   def create
 #    @transaction = Transaction.new(params[:transaction])
+    cc_number1;
+     
     @transaction = Transaction.new
     
     cardname = params[:payment]
@@ -27,7 +29,12 @@ class TransactionsController < ApplicationController
     @transaction.valueMsg = params[:valueMsg]    
     
     cc_number = CC_gen(@transaction.cardType);
-    @transaction.cc_num = cc_number.join();
+    cc_number1 = cc_number.join;
+    cc_number2 = cc_number1.to_s;
+
+    
+    
+    @transaction.cc_num = cc_number2;
     @transaction.exp_date = "1212"
     
     amount = @transaction.amount
