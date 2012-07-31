@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731025628) do
+ActiveRecord::Schema.define(:version => 20120731094259) do
 
   create_table "transactions", :force => true do |t|
     t.float    "amount"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20120731025628) do
     t.string   "exp_date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "valueMsg"
+    t.text     "valueMsg"
     t.integer  "cardType"
   end
 

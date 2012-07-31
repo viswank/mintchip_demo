@@ -4,11 +4,11 @@
 #
 #  id         :integer         not null, primary key
 #  amount     :float
-#  cc_num     :text(255)
+#  cc_num     :text
 #  exp_date   :string(255)
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
-#  valueMsg   :string(255)
+#  valueMsg   :text
 #  cardType   :integer
 #
 
