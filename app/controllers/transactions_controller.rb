@@ -10,7 +10,6 @@ class TransactionsController < ApplicationController
 
   def create
 #    @transaction = Transaction.new(params[:transaction])
-    cc_number1;
      
     @transaction = Transaction.new
     
@@ -39,13 +38,13 @@ class TransactionsController < ApplicationController
     
     amount = @transaction.amount
     cardtype = @transaction.cardType
-    cc_number = @transaction.cc_num
+    cc_number2 = @transaction.cc_num
     
     
     str1 = "Virtual card successfully generated " 
     str2 = "Amount = " + amount.to_s
     str3 = "Card Type = " + cardtype.to_s
-    str4 = "Card Number = " + cc_number.to_s
+    str4 = "Card Number = " + cc_number2.to_s
     
     str1 = str1 + str2 + str3+ str4;
     
