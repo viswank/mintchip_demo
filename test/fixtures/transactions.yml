@@ -4,7 +4,7 @@
 #
 #  id         :integer         not null, primary key
 #  amount     :float
-#  cc_num     :integer
+#  cc_num     :string(255)
 #  exp_date   :string(255)
 #  created_at :datetime        not null
 #  updated_at :datetime        not null

@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726234227) do
+ActiveRecord::Schema.define(:version => 20120731003403) do
 
   create_table "transactions", :force => true do |t|
     t.float    "amount"
-    t.integer  "cc_num"
+    t.string   "cc_num"
     t.string   "exp_date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
