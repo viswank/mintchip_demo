@@ -5,16 +5,22 @@ class TransactionsController < ApplicationController
   end
 
   def new
-#    @transaction = Transaction.new
+    @transaction = Transaction.new
   end
 
   def create
 #    @transaction = Transaction.new(params[:transaction])
      
     @transaction = Transaction.new
+
+#    if params[:valueMsg].isEmpty
+#      flash[:error] = "Sorry. Your card cannot be generated. Please ensure you have a valid MintChip card with sufficient funds";
+#      render 'new'      
+#    end
+
     
     cardname = params[:payment]
-    if cardname.to_s == "VISA"
+    if cardname.to_s == "Visa"
       @transaction.cardType = 1
     elsif cardname.to_s == "MasterCard"
       @transaction.cardType = 2
@@ -26,6 +32,17 @@ class TransactionsController < ApplicationController
     
     @transaction.amount = params[:amount]
     @transaction.valueMsg = params[:valueMsg]    
+    
+    onetime = params[:one_time];
+    if onetime == "1"
+      @transaction.onetimeuse = 1
+    else
+      @transaction.onetimeuse = 100
+    end
+    
+#    @transaction.amount = (params[:one_time]).to_i;
+    
+    
     
     cc_number = CC_gen(@transaction.cardType);
     cc_number1 = cc_number.join;
@@ -41,18 +58,19 @@ class TransactionsController < ApplicationController
     cc_number2 = @transaction.cc_num
     
     
-    str1 = "Virtual card successfully generated " 
-    str2 = "Amount = " + amount.to_s
-    str3 = "Card Type = " + cardtype.to_s
-    str4 = "Card Number = " + cc_number2.to_s
+    str1 = "Virtual card successfully generated"  
+    str2 = "Card Type = " + cardname.to_s  
+    str3 = "Amount = $" + amount.to_s  
+#    str3 = "Card Type = " + cardtype.to_s
+    str4 = "Card Number = " + cc_number2.to_s 
     
-    str1 = str1 + str2 + str3+ str4;
+#    str1 = str1 + str2 + str3+ str4;
     
     if @transaction.save
       flash[:success1] = str1;
-#      flash[:success2] = str2;
-#      flash[:success3] = str3;
-#      flash[:success4] = str4;
+     flash[:success2] = str2;
+     flash[:success3] = str3;
+     flash[:success4] = str4;
       
       redirect_to @transaction
     else

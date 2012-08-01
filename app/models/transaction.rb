@@ -10,10 +10,11 @@
 #  updated_at :datetime        not null
 #  valueMsg   :text
 #  cardType   :integer
+#  onetimeuse :integer
 #
 
 class Transaction < ActiveRecord::Base
-  attr_accessible :amount, :cc_num, :exp_date, :valueMsg, :cardType
+  attr_accessible :amount, :cc_num, :exp_date, :valueMsg, :cardType, :onetimeuse
   
   validates :amount, presence: true
   validates_numericality_of :amount, :greater_than => 0

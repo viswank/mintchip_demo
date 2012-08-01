@@ -10,6 +10,7 @@
 #  updated_at :datetime        not null
 #  valueMsg   :text
 #  cardType   :integer
+#  onetimeuse :integer
 #
 
 require 'test_helper'

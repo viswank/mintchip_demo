@@ -1,5 +1,30 @@
-<% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
+<% provide(:title, 'Obtain Virtual Card') %>
+<h1>Create your custom Virtual Card</h1>
+  <div id="feature-list">
+    <h3>Features <small></small></h3>
+    <div class="mini-rule"></div>
+    <ul id="features">
+      <li>
+        <h4>Configure your own virtual card</h4>
+        <p>You can generate your own virtual card - any amount, any brand, create it as a one-time use card or with a specific validity period </p>
+      </li>
+      <li>
+        <h4>Use with any online merchant</h4>
+        <p>You can use this card with any online merchant who accepts Credit cards today. Since this card appears as a traditional card to a merchant, you can shop anywhere</p>
+      </li>
+      <li>
+        <h4>Fast and secure</h4>
+        <p>Your card is available for immediate use. Set it up as a one-time use card and have no fear of using it on an unsecure network </p>
+      </li>
+      <li>
+        <h4>Fund it with Mintchip</h4>
+        <p>And best of all, you can create this card with funds from your physical MintChip account. Try it out now</p>
+      </li>
+      <div class="clear"></div>
+    </ul>
+  </div>      
+      
+
 
     <script type="text/javascript">
 
@@ -45,6 +70,7 @@
                     return;
                 }
 
+				amount = amount * 100;
                 var request = messageFactory.createValueRequestMessage(payeeId, amount, mintChipApi().currencyCode.CAD);
                 request.challenge = Math.round(Math.random() * (Math.pow(2, 31)-1));
                 request.annotation = annotation;
@@ -130,17 +156,28 @@
 
 
 <%= form_tag({:controller => "transactions", :action => "create"}, :method => "post", :class => "nifty_form")  do %> 
-  <%= label_tag(:Amount, "Amount") %>
-  <%= text_field_tag(:amount) %> 
 
 
   <%= label_tag(:CCType, "Card Type:") %>
   <%= select_tag "payment", options_for_select([ "Visa", "MasterCard", "AMEX", "Discover" ], "Visa") %>
 
+  <%= label_tag(:Amount, "Amount:") %>
+  <%= text_field_tag(:amount, nil, :maxlength => 10, :size => 10) %> 
+
+  <%= label_tag(:PeriodLabel, "Validity (days):") %>
+  <%= number_field_tag(:validity, nil, :in => 1...365, :maxlength => 4, :size => 4) %> 
+
+  <%= label_tag(:OneLabel, "One time use only:") %> 
+  <%= check_box_tag(:one_time, '1', false) %>
+  
   <%= hidden_field_tag(:valueMsg) %>
-
+ 
+  <br>
+  <br>
+  
   <%= submit_tag  "Create my Virtual Card!", class: "btn btn-large btn-primary", :onclick => "return createValueMessage();" %>
-
+  <br>	Please insert the MintChip now.
+  <br>	If you do not have a MintChip, please view complete demo here
 <% end %>
 
 

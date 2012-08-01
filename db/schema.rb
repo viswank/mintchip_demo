@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731094259) do
+ActiveRecord::Schema.define(:version => 20120801055129) do
 
   create_table "transactions", :force => true do |t|
     t.float    "amount"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20120731094259) do
     t.datetime "updated_at", :null => false
     t.text     "valueMsg"
     t.integer  "cardType"
+    t.integer  "onetimeuse"
   end
 
   create_table "users", :force => true do |t|
