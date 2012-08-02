@@ -13,8 +13,10 @@ class TransactionsController < ApplicationController
      
     @transaction = Transaction.new
 
-#    if params[:valueMsg].isEmpty
-#      flash[:error] = "Sorry. Your card cannot be generated. Please ensure you have a valid MintChip card with sufficient funds";
+#  val = 1
+  
+#    if params[:valueMsg].empty?
+#      val = 0;
 #      render 'new'      
 #    end
 
@@ -66,7 +68,8 @@ class TransactionsController < ApplicationController
     
 #    str1 = str1 + str2 + str3+ str4;
     
-    if @transaction.save
+#    if ((@transaction.save) && (val==1))
+    if (@transaction.save)
       flash[:success1] = str1;
      flash[:success2] = str2;
      flash[:success3] = str3;
@@ -74,6 +77,8 @@ class TransactionsController < ApplicationController
       
       redirect_to @transaction
     else
+#      flash[:error] = "Sorry. Your card cannot be generated. Please ensure you have a valid MintChip card with sufficient funds";
+#      val = 1
       render 'new'
     end
   end

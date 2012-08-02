@@ -18,6 +18,7 @@ class Transaction < ActiveRecord::Base
   
   validates :amount, presence: true
   validates_numericality_of :amount, :greater_than => 0
+  validates :valueMsg, presence: true
   
   
 end
